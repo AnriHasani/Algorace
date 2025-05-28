@@ -117,23 +117,24 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
 
+
   // Mock API endpoints
   const createCompetition = async (subject: string, timeLimitValue: number) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       // Generate a random room ID
       const newRoomId = 'room-' + Math.random().toString(36).substr(2, 9);
       setRoomId(newRoomId);
-      
+
       // Set time limit
       setTimeLimit(timeLimitValue);
       setTimeRemaining(timeLimitValue);
-      
+
       return newRoomId;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create competition');
@@ -147,17 +148,17 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       // Set room ID
       setRoomId(roomIdValue);
-      
+
       // For demo, randomly select a problem
       const randomProblem = mockProblems[Math.floor(Math.random() * mockProblems.length)];
       setCurrentProblem(randomProblem);
-      
+
       return randomProblem;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to join competition');
@@ -171,13 +172,13 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // Generate a random submission ID
       const submissionId = 'sub-' + Math.random().toString(36).substr(2, 9);
-      
+
       // Create a new submission
       const newSubmission: Submission = {
         id: submissionId,
@@ -186,55 +187,55 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
         timestamp: Date.now(),
         status: 'pending'
       };
-      
+
       setSubmissions(prev => [...prev, newSubmission]);
-      
+
       // Simulate processing time
       setTimeout(() => {
         // Random score between 50 and 100
         const score = Math.floor(Math.random() * 51) + 50;
-        
+
         // Update submission status
-        setSubmissions(prev => 
-          prev.map(sub => 
-            sub.id === submissionId 
-              ? { 
-                  ...sub, 
-                  status: 'success', 
-                  score, 
-                  feedback: getRandomFeedback(score) 
-                } 
+        setSubmissions(prev =>
+          prev.map(sub =>
+            sub.id === submissionId
+              ? {
+                  ...sub,
+                  status: 'success',
+                  score,
+                  feedback: getRandomFeedback(score)
+                }
               : sub
           )
         );
-        
+
         // Update rankings
         setRankings(prev => {
           const existingRankingIndex = prev.findIndex(r => r.username === username);
-          
+
           if (existingRankingIndex >= 0) {
             // Update existing ranking if better score
             if (prev[existingRankingIndex].score < score) {
               const updated = [...prev];
-              updated[existingRankingIndex] = { 
-                username, 
-                score, 
-                feedback: getRandomFeedback(score) 
+              updated[existingRankingIndex] = {
+                username,
+                score,
+                feedback: getRandomFeedback(score)
               };
               return updated.sort((a, b) => b.score - a.score);
             }
             return prev;
           } else {
             // Add new ranking
-            return [...prev, { 
-              username, 
-              score, 
-              feedback: getRandomFeedback(score) 
+            return [...prev, {
+              username,
+              score,
+              feedback: getRandomFeedback(score)
             }].sort((a, b) => b.score - a.score);
           }
         });
       }, 3000);
-      
+
       return submissionId;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit code');
@@ -248,10 +249,10 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Return current rankings
       return rankings;
     } catch (err) {
@@ -267,7 +268,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
     if (timerInterval) {
       clearInterval(timerInterval);
     }
-    
+
     // Start a new interval
     const interval = setInterval(() => {
       setTimeRemaining(prev => {
@@ -278,9 +279,9 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
         return prev - 1;
       });
     }, 1000);
-    
+
     setTimerInterval(interval);
-    
+
     // Cleanup on component unmount
     return () => {
       if (interval) {

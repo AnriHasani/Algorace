@@ -124,9 +124,9 @@ const HeroSection = () => {
             <div className="bg-accent-600/20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
               <Users className="text-accent-500 h-6 w-6" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Global Leaderboard</h3>
+            <h3 className="text-xl font-semibold mb-2">Problem Solving</h3>
             <p className="text-gray-400">
-              Compete with coders worldwide and track your progress on the global leaderboard.
+              Explore coding challenges to sharpen your skills and prepare for the next event.
             </p>
           </motion.div>
         </div>
