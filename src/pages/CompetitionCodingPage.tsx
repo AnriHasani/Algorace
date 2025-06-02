@@ -6,12 +6,14 @@ import { useCompetition } from '../context/CompetitionContext';
 import ProblemStatement from '../components/competition/ProblemStatement';
 import CodeEditor from '../components/competition/CodeEditor';
 
+
 const CompetitionCodingPage = () => {
   const { roomId } = useParams<{ roomId: string }>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { currentProblem, timeRemaining } = useCompetition();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
   
   // Redirect if not authenticated or no roomId
   useEffect(() => {

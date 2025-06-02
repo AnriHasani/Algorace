@@ -1,15 +1,10 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
-import axios from 'axios';
+
 
 interface Problem {
   title: string;
   description: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  examples: Array<{
-    input: string;
-    output: string;
-    explanation?: string;
-  }>;
+  difficulty: 'Easy' | 'Medium' | 'Hard'
 }
 
 interface Submission {
@@ -61,48 +56,19 @@ const mockProblems: Problem[] = [
     title: 'Two Sum',
     description: 'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.',
     difficulty: 'Easy',
-    examples: [
-      {
-        input: 'nums = [2,7,11,15], target = 9',
-        output: '[0,1]',
-        explanation: 'Because nums[0] + nums[1] == 9, we return [0, 1]'
-      },
-      {
-        input: 'nums = [3,2,4], target = 6',
-        output: '[1,2]'
-      }
-    ]
+
   },
   {
     title: 'Reverse Linked List',
     description: 'Given the head of a singly linked list, reverse the list, and return the reversed list.',
     difficulty: 'Medium',
-    examples: [
-      {
-        input: 'head = [1,2,3,4,5]',
-        output: '[5,4,3,2,1]'
-      },
-      {
-        input: 'head = [1,2]',
-        output: '[2,1]'
-      }
-    ]
+
   },
   {
     title: 'Maximum Subarray',
     description: 'Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.',
     difficulty: 'Medium',
-    examples: [
-      {
-        input: 'nums = [-2,1,-3,4,-1,2,1,-5,4]',
-        output: '6',
-        explanation: '[4,-1,2,1] has the largest sum = 6'
-      },
-      {
-        input: 'nums = [1]',
-        output: '1'
-      }
-    ]
+
   }
 ];
 

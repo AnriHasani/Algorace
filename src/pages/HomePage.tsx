@@ -225,14 +225,14 @@ const HomePage = () => {
                   <Users className="text-primary-500 h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Real-time Leaderboard</h3>
+                  <h3 className="text-xl font-semibold mb-2">Leaderboard</h3>
                   <p className="text-gray-400">
-                    Track your performance against other participants with our live updating leaderboard system.
+                    Track your performance against other participants with our leaderboard system.
                   </p>
                   <ul className="mt-4 space-y-2">
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-primary-500" />
-                      <span className="text-sm text-gray-300">Live rankings and scoring</span>
+                      <span className="text-sm text-gray-300">Rankings and scoring</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-primary-500" />

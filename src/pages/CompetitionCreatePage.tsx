@@ -1,22 +1,30 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, Brain, Users, Code, Check } from 'lucide-react';
 import { useCompetition } from '../context/CompetitionContext';
 import { useAuth } from '../context/AuthContext';
+import {
+  competitionSubjectAtom,
+  programmingLanguageAtom, competitionConstraintAtom
+} from '../components/jotai/competitionAtoms';
+import {useAtom} from "jotai/index";
+
+
 
 const CompetitionCreatePage = () => {
-  const [subject, setSubject] = useState('Algorithms');
-  const [programmingLanguage, setProgrammingLanguage] = useState('');
-  const [constraints, setConstraints] = useState('');
+
+  const [programmingLanguage, setProgrammingLanguage] = useAtom(programmingLanguageAtom);
+  const [constraints, setConstraints] = useAtom(competitionConstraintAtom);
   const [hours, setHours] = useState(1);
   const [minutes, setMinutes] = useState(0);
   const { createCompetition, loading } = useCompetition();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
+  const [subject, setSubject] = useAtom(competitionSubjectAtom);
   const handleCreateCompetition = async (e: React.FormEvent) => {
     e.preventDefault();
+
 
     if (!isAuthenticated) {
       navigate('/login');
@@ -73,7 +81,7 @@ const CompetitionCreatePage = () => {
                       id="subject"
                       type="text"
                       value={subject}
-                      onChange={(e) => setSubject(e.target.value)}
+                      onChange={(e) => {setSubject(e.target.value);console.log(e.target.value)}}
                       placeholder="Enter subject"
                       required
                       className="w-full px-4 py-2 text-white bg-zinc-900 border border-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
