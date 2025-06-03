@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, Brain, Users, Code, Check } from 'lucide-react';
@@ -6,14 +6,12 @@ import { useCompetition } from '../context/CompetitionContext';
 import { useAuth } from '../context/AuthContext';
 import {
   competitionSubjectAtom,
-  programmingLanguageAtom, competitionConstraintAtom
+  programmingLanguageAtom,
+  competitionConstraintAtom,
 } from '../components/jotai/competitionAtoms';
-import {useAtom} from "jotai/index";
-
-
+import { useAtom } from 'jotai';
 
 const CompetitionCreatePage = () => {
-
   const [programmingLanguage, setProgrammingLanguage] = useAtom(programmingLanguageAtom);
   const [constraints, setConstraints] = useAtom(competitionConstraintAtom);
   const [hours, setHours] = useState(1);
@@ -22,9 +20,9 @@ const CompetitionCreatePage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [subject, setSubject] = useAtom(competitionSubjectAtom);
+
   const handleCreateCompetition = async (e: React.FormEvent) => {
     e.preventDefault();
-
 
     if (!isAuthenticated) {
       navigate('/login');
@@ -41,19 +39,19 @@ const CompetitionCreatePage = () => {
       return;
     }
 
-    const timeLimit = (hours * 3600) + (minutes * 60);
+    const timeLimit = hours * 3600 + minutes * 60;
     if (timeLimit <= 0) {
       alert('Please set a valid time limit');
       return;
     }
 
-
     try {
-      const roomId = await createCompetition(subject, timeLimit);
+      console.log('Creating competition with:', { subject, timeLimit, constraints });
+      const roomId = await createCompetition(subject, timeLimit, constraints);
       navigate(`/competition/lobby/${roomId}`);
     } catch (error) {
-      console.error('Error creating competition:', error);
-      alert('Failed to create competition. Please try again.');
+      console.error('Failed to create competition:', error);
+      alert(`Failed to create competition: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
     }
   };
 
@@ -77,18 +75,16 @@ const CompetitionCreatePage = () => {
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                     Subject <span className="text-red-500">*</span>
                   </label>
-                  <input
+                  <textarea
                       id="subject"
-                      type="text"
                       value={subject}
-                      onChange={(e) => {setSubject(e.target.value);console.log(e.target.value)}}
-                      placeholder="Enter subject"
+                      onChange={(e) => setSubject(e.target.value)}
+                      placeholder="Enter problem description (e.g., input format, output format, examples)"
                       required
-                      className="w-full px-4 py-2 text-white bg-zinc-900 border border-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-4 py-2 text-white bg-zinc-900 border border-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[100px]"
                   />
                 </div>
 
-                {/* Programming Language */}
                 <div>
                   <label htmlFor="language" className="block text-sm font-medium text-gray-300 mb-2">
                     Programming Language <span className="text-red-500">*</span>
@@ -104,7 +100,6 @@ const CompetitionCreatePage = () => {
                   />
                 </div>
 
-                {/* Constraints */}
                 <div>
                   <label htmlFor="constraints" className="block text-sm font-medium text-gray-300 mb-2">
                     Constraints
@@ -114,12 +109,11 @@ const CompetitionCreatePage = () => {
                       type="text"
                       value={constraints}
                       onChange={(e) => setConstraints(e.target.value)}
-                      placeholder="Enter constraints (if any)"
+                      placeholder="Enter constraints (e.g., input size, time complexity)"
                       className="w-full px-4 py-2 text-white bg-zinc-900 border border-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
 
-                {/* Time Limit */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     Time Limit
@@ -165,7 +159,6 @@ const CompetitionCreatePage = () => {
                   )}
                 </div>
 
-                {/* Summary */}
                 <div className="bg-background-tertiary p-4 rounded-lg">
                   <h3 className="font-medium mb-3 flex items-center">
                     <Check className="h-5 w-5 text-primary-500 mr-2" />
@@ -174,7 +167,7 @@ const CompetitionCreatePage = () => {
                   <ul className="space-y-3 text-sm text-gray-300">
                     <li className="flex items-center space-x-2">
                       <Brain className="h-4 w-4 text-gray-400" />
-                      <span>Subject: <span className="text-white">{subject}</span></span>
+                      <span>Subject: <span className="text-white">{subject || 'Not set'}</span></span>
                     </li>
                     <li className="flex items-center space-x-2">
                       <Clock className="h-4 w-4 text-gray-400" />
@@ -187,8 +180,6 @@ const CompetitionCreatePage = () => {
                       </span>
                     </span>
                     </li>
-
-
                     <li className="flex items-center space-x-2">
                       <Users className="h-4 w-4 text-gray-400" />
                       <span>
@@ -198,7 +189,6 @@ const CompetitionCreatePage = () => {
                   </ul>
                 </div>
 
-                {/* Submit */}
                 <div className="pt-4">
                   <button
                       type="submit"
@@ -213,14 +203,13 @@ const CompetitionCreatePage = () => {
                     ) : (
                         <span>Create Competition</span>
                     )}
-                       </button>
+                  </button>
                 </div>
               </form>
             </motion.div>
           </div>
         </div>
-        </div>
-
+      </div>
   );
 };
 
