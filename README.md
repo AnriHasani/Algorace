@@ -9,7 +9,9 @@ A simple setup guide to get AlgoRace running locally.
 npm install
 
 2. Create a .env file in the root directory with the necessary environment variables.
+   
 PORT=your-port
+
 GOOGLE_AI_API_KEY=your-api-key
 
 ## Running the Application
