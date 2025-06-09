@@ -25,7 +25,7 @@ interface Ranking {
 }
 
 interface CompetitionContextType {
-  createCompetition: (subject: string, timeLimit: number, constraints?: string) => Promise<string>;
+  createCompetition: (subject: string, timeLimit: number, language: string, constraints?: string) => Promise<string>;
   joinCompetition: (roomId: string, username: string) => Promise<Problem>;
   submitCode: (roomId: string, username: string, code: string, language: string) => Promise<{ submissionId: string; score?: number; feedback?: string }>;
   getResults: (roomId: string) => Promise<Ranking[]>;
@@ -61,7 +61,8 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
-  const createCompetition = async (subject: string, timeLimitValue: number, constraints?: string) => {
+
+  const createCompetition = async (subject: string, timeLimitValue: number, language: string, constraints?: string ) => {
     try {
       setLoading(true);
       setError(null);
@@ -71,7 +72,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ subject, timeLimit: timeLimitValue, constraints }),
+        body: JSON.stringify({ subject, timeLimit: timeLimitValue, constraints, language }),
       });
 
       if (!response.ok) {

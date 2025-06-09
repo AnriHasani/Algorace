@@ -10,7 +10,7 @@ interface ResultsTableProps {
 const ResultsTable = ({ roomId }: ResultsTableProps) => {
   const { getResults, rankings, loading } = useCompetition();
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc'); // Default to highest score first
-  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
+
 
   // Start polling for results
   useEffect(() => {
@@ -22,12 +22,10 @@ const ResultsTable = ({ roomId }: ResultsTableProps) => {
       }
     };
 
-    // Initial fetch
     fetchResults();
 
     // Set up polling
     const interval = setInterval(fetchResults, 5000);
-    setPollingInterval(interval);
 
     // Clean up on unmount
     return () => {

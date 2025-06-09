@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { Play, Save, FileCode } from 'lucide-react';
 import { useCompetition } from '../../context/CompetitionContext';
@@ -12,7 +12,6 @@ interface CodeEditorProps {
 const CodeEditor = ({ roomId, onSubmit }: CodeEditorProps) => {
   const [code, setCode] = useState<string>('// Write your solution here\n\n');
   const [language, setLanguage] = useState<string>('javascript');
-  const [theme, setTheme] = useState<string>('vs-dark');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { submitCode, loading } = useCompetition();
@@ -25,6 +24,7 @@ const CodeEditor = ({ roomId, onSubmit }: CodeEditorProps) => {
     { id: 'java', name: 'Java' },
     { id: 'csharp', name: 'C#' },
     { id: 'cpp', name: 'C++' },
+    { id: 'other', name: 'Other'}
   ];
 
   const handleCodeChange = (value: string | undefined) => {
@@ -44,6 +44,7 @@ const CodeEditor = ({ roomId, onSubmit }: CodeEditorProps) => {
       java: '// Write your solution here\n\npublic class Solution {\n    public static Object solution(Object input) {\n        // Your code\n        \n        return result;\n    }\n}\n',
       csharp: '// Write your solution here\n\npublic class Solution {\n    public static object Solve(object input) {\n        // Your code\n        \n        return result;\n    }\n}\n',
       cpp: '// Write your solution here\n\n#include <iostream>\n#include <vector>\n\nusing namespace std;\n\nauto solution(auto input) {\n    // Your code\n    \n    return result;\n}\n',
+      other: '// Up to you :)'
     };
 
     setCode(starterCodes[e.target.value] || starterCodes.javascript);
@@ -122,7 +123,7 @@ const CodeEditor = ({ roomId, onSubmit }: CodeEditorProps) => {
               height="100%"
               language={language}
               value={code}
-              theme={theme}
+              theme={'vs-dark'}
               onChange={handleCodeChange}
               options={{
                 minimap: { enabled: false },

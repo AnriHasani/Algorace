@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {FormEvent, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, Brain, Users, Code, Check } from 'lucide-react';
@@ -6,22 +6,21 @@ import { useCompetition } from '../context/CompetitionContext';
 import { useAuth } from '../context/AuthContext';
 import {
   competitionSubjectAtom,
-  programmingLanguageAtom,
   competitionConstraintAtom,
 } from '../components/jotai/competitionAtoms';
 import { useAtom } from 'jotai';
 
 const CompetitionCreatePage = () => {
-  const [programmingLanguage, setProgrammingLanguage] = useAtom(programmingLanguageAtom);
   const [constraints, setConstraints] = useAtom(competitionConstraintAtom);
   const [hours, setHours] = useState(1);
   const [minutes, setMinutes] = useState(0);
-  const { createCompetition, loading } = useCompetition();
+  const { loading, createCompetition } = useCompetition();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [subject, setSubject] = useAtom(competitionSubjectAtom);
+  const [competitionLanguage, setCompetitionLanguage] = useState<string | null>(null);
 
-  const handleCreateCompetition = async (e: React.FormEvent) => {
+  const handleCreateCompetition = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!isAuthenticated) {
@@ -34,7 +33,7 @@ const CompetitionCreatePage = () => {
       return;
     }
 
-    if (!programmingLanguage.trim()) {
+    if (!competitionLanguage?.trim()) {
       alert('Programming language is required.');
       return;
     }
@@ -46,8 +45,7 @@ const CompetitionCreatePage = () => {
     }
 
     try {
-      console.log('Creating competition with:', { subject, timeLimit, constraints });
-      const roomId = await createCompetition(subject, timeLimit, constraints);
+      const roomId = await createCompetition(subject, timeLimit, constraints, competitionLanguage);
       navigate(`/competition/lobby/${roomId}`);
     } catch (error) {
       console.error('Failed to create competition:', error);
@@ -92,8 +90,11 @@ const CompetitionCreatePage = () => {
                   <input
                       id="language"
                       type="text"
-                      value={programmingLanguage}
-                      onChange={(e) => setProgrammingLanguage(e.target.value)}
+                      value={competitionLanguage ?? ""}
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        setCompetitionLanguage(e.target.value)
+                      }}
                       placeholder="e.g. Python, JavaScript"
                       required
                       className="w-full px-4 py-2 text-white bg-zinc-900 border border-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"

@@ -9,8 +9,6 @@ import cors from 'cors';
 dotenv.config();
 
 const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
-console.log('GOOGLE_AI_API_KEY:', GOOGLE_AI_API_KEY); // debug
-console.log('GOOGLE_AI_API_KEY:', process.env.GOOGLE_AI_API_KEY);
 
 dotenv.config();
 
@@ -33,8 +31,8 @@ const results = new Map();
 // API Routes
 app.post('/api/create-comp', (req, res) => {
   try {
-    const { subject, timeLimit, constraints } = req.body;
-    console.log('Received create-comp request:', { subject, timeLimit, constraints });
+    const { subject, timeLimit, constraints, language } = req.body;
+    console.log('Received create-comp request:', { subject, timeLimit, constraints, language });
 
     // Validate inputs
     if (!subject || typeof subject !== 'string' || subject.trim().length === 0) {
@@ -51,6 +49,7 @@ app.post('/api/create-comp', (req, res) => {
 
     competitions.set(roomId, {
       subject,
+      language,
       constraints: constraints || 'None',
       timeLimit,
       createdAt: Date.now(),
@@ -107,7 +106,9 @@ app.post('/api/submit-code', async (req, res) => {
       return res.status(400).json({ error: 'Room ID, username, code, and language are required' });
     }
 
-    const competition = competitions.get(roomId);
+    const competition = competitions.get(roomId)
+
+    console.log(competition)
 
     if (!competition) {
       return res.status(404).json({ error: 'Competition not found' });
@@ -125,58 +126,56 @@ app.post('/api/submit-code', async (req, res) => {
     });
 
     try {
-      // Construct prompt or request payload suitable for Google AI Studio's code evaluation
-      const prompt = `Evaluate the following code submission for the problem: ${competition.subject}.\n` +
-          `Constraints: ${competition.constraints || 'None'}\n` +
-          `Code (${language}):\n${code}\n` +
-          `Provide a score from 0-100 and feedback in one sentence as JSON like: {"score": , "feedback": "..."}`;
+      // Construct prompt for Google AI Studio's code evaluation
+      const prompt = `You are an AI code evaluator.
+
+The following submission must be written in **${competition.language}** only.
+If the code is in a different language, you MUST give a score of 0 and explain that the wrong programming language was used.
+
+Problem: ${competition.subject}
+Constraints: ${competition.constraints || 'None'}
+Time Limit: ${competition.timeLimit || 'N/A'}
+
+Code Submitted (language: ${language}):
+${code}
+
+Evaluate this code and respond strictly with JSON in the following format:
+{"score": '<0-100>', "feedback": "<one concise sentence>"}`;
+
 
       const response = await axios.post(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_AI_API_KEY}`,
           {
             contents: [
               {
-                parts: [
-                  {
-                    text: prompt,
-                  },
-                ],
+                parts: [{ text: prompt }],
               },
             ],
           },
           {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
           }
       );
 
 
-
-      let score = 0;
+      let score;
       let feedback = 'No feedback provided by AI.';
-
-      // Parse response to extract score and feedback, depending on how Google AI returns it
-      // Here we assume the AI response text includes JSON like: {"score": 85, "feedback": "..."}
       const aiText = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-
       try {
-        // Try to parse JSON from AI text response
         const jsonStart = aiText.indexOf('{');
         const jsonEnd = aiText.lastIndexOf('}') + 1;
+
         if (jsonStart !== -1 && jsonEnd !== -1) {
           const jsonString = aiText.substring(jsonStart, jsonEnd);
           const parsed = JSON.parse(jsonString);
           score = typeof parsed.score === 'number' ? parsed.score : 0;
           feedback = parsed.feedback || feedback;
         } else {
-          // Fallback: set feedback to plain text
           feedback = aiText;
-          score = 50; // default score if not found
+          score = 50;
         }
       } catch {
-        // If parsing fails, fallback
         feedback = aiText;
         score = 50;
       }
@@ -207,7 +206,8 @@ app.post('/api/submit-code', async (req, res) => {
       results.set(roomId, roomResults);
 
       return res.status(202).json({ submissionId, score, feedback });
-    } catch (aiError) {
+    }
+ catch (aiError) {
       console.error('Error evaluating code with AI:', aiError);
       const score = 50;
       const feedback = 'Unable to evaluate code due to AI service error. Please try again.';
@@ -263,7 +263,20 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 
-app.listen(PORT, () => {
+import http from 'http';
+import { Server as SocketIOServer } from 'socket.io';
+
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    methods: ['GET', 'POST']
+  }
+});
+
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
 
