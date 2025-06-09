@@ -1,1 +1,23 @@
-# algorace
+# AlgoRace
+
+A simple setup guide to get AlgoRace running locally.
+
+## Setup
+
+1. Install dependencies:
+
+npm install
+
+2. Create a .env file in the root directory with the necessary environment variables.
+PORT=your-port
+GOOGLE_AI_API_KEY=your-api-key
+
+## Running the Application
+
+- To start the backend server:
+
+npm run server
+
+- To start the frontend application:
+
+npm run start
