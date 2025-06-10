@@ -6,7 +6,7 @@ import { useCompetition } from '../context/CompetitionContext';
 import { useAuth } from '../context/AuthContext';
 import {
   competitionSubjectAtom,
-  competitionConstraintAtom,
+  competitionConstraintAtom, programmingLanguageAtom,
 } from '../components/jotai/competitionAtoms';
 import { useAtom } from 'jotai';
 
@@ -18,7 +18,7 @@ const CompetitionCreatePage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [subject, setSubject] = useAtom(competitionSubjectAtom);
-  const [competitionLanguage, setCompetitionLanguage] = useState<string | null>(null);
+  const [competitionLanguage, setCompetitionLanguage] = useAtom(programmingLanguageAtom);
 
   const handleCreateCompetition = async (e: FormEvent) => {
     e.preventDefault();

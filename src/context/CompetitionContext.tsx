@@ -67,7 +67,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:3001/api/create-comp', {
+      const response = await fetch('http://localhost:3002/api/create-comp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:3001/api/join-comp', {
+      const response = await fetch('http://localhost:3002/api/join-comp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:3001/api/submit-code', {
+      const response = await fetch('http://localhost:3002/api/submit-code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ export const CompetitionProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`http://localhost:3001/api/get-results?roomId=${roomIdValue}`);
+      const response = await fetch(`http://localhost:3002/api/get-results?roomId=${roomIdValue}`);
       if (!response.ok) {
         throw new Error('Failed to get results');
       }

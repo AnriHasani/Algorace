@@ -9,9 +9,11 @@ interface ProblemStatementProps {
 
 const ProblemStatement = ({ collapsed = false }: ProblemStatementProps) => {
     const { currentProblem, timeRemaining } = useCompetition();
-    const [programmingLanguage] = useAtom(programmingLanguageAtom);
     const [constraints] = useAtom(competitionConstraintAtom);
     const [subject] = useAtom(competitionSubjectAtom);
+    const[programmingLanguage] = useAtom(programmingLanguageAtom);
+
+
 
     if (!subject) {
         // Show a placeholder if subject is not set

@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="78835835-3b26-4a76-821d-cb4c04a95a1a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-B4C6Ctlo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-BLG50Ojt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-DE6qOUXY.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-Di9W6pB0.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-DvM3GUHG.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-r33r1C1j.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/competition/ProblemStatement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/competition/ProblemStatement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/CompetitionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/CompetitionContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CompetitionCreatePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CompetitionCreatePage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +26,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
@@ -38,8 +56,11 @@
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/dora/Downloads/algorace&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/dora/Downloads/algorace/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -67,7 +88,9 @@
       <option name="presentableId" value="Default" />
       <updated>1749490732532</updated>
       <workItem from="1749490733795" duration="89000" />
-      <workItem from="1749490852121" duration="266000" />
+      <workItem from="1749490852121" duration="923000" />
+      <workItem from="1749558262142" duration="1263000" />
+      <workItem from="1749587572540" duration="2807000" />
     </task>
     <servers />
   </component>
