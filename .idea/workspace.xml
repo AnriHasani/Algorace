@@ -6,17 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="78835835-3b26-4a76-821d-cb4c04a95a1a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-B4C6Ctlo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-BLG50Ojt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-DE6qOUXY.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-Di9W6pB0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-DvM3GUHG.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-r33r1C1j.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/competition/ProblemStatement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/competition/ProblemStatement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/jotai/competitionAtoms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/jotai/competitionAtoms.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/context/CompetitionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/CompetitionContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/CompetitionCreatePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CompetitionCreatePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CompetitionResultsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CompetitionResultsPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +22,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>

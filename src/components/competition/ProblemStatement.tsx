@@ -1,19 +1,21 @@
-import { CheckCircle, AlertCircle, Clock } from 'lucide-react';
-import { useCompetition } from '../../context/CompetitionContext';
-import { useAtom } from 'jotai';
-import { competitionConstraintAtom, competitionSubjectAtom, programmingLanguageAtom } from '../jotai/competitionAtoms';
+import {CheckCircle, AlertCircle, Clock} from 'lucide-react';
+import {useCompetition} from '../../context/CompetitionContext';
+import {useAtom} from 'jotai';
+import {
+    competitionConstraintAtom,
+    competitionSubjectAtom,
+    programmingLanguageAtom,
+} from '../jotai/competitionAtoms';
 
 interface ProblemStatementProps {
     collapsed?: boolean;
 }
 
-const ProblemStatement = ({ collapsed = false }: ProblemStatementProps) => {
-    const { currentProblem, timeRemaining } = useCompetition();
+const ProblemStatement = ({collapsed = false}: ProblemStatementProps) => {
+    const {currentProblem, timeRemaining} = useCompetition();
     const [constraints] = useAtom(competitionConstraintAtom);
     const [subject] = useAtom(competitionSubjectAtom);
-    const[programmingLanguage] = useAtom(programmingLanguageAtom);
-
-
+    const [programmingLanguage] = useAtom(programmingLanguageAtom);
 
     if (!subject) {
         // Show a placeholder if subject is not set
@@ -66,7 +68,7 @@ const ProblemStatement = ({ collapsed = false }: ProblemStatementProps) => {
                         )}
                     </div>
                     <div className="flex items-center text-warning-500 bg-warning-500/10 px-3 py-1 rounded-full">
-                        <Clock className="h-4 w-4 mr-1" />
+                        <Clock className="h-4 w-4 mr-1"/>
                         <span className="text-sm font-mono">{formatTime(timeRemaining)}</span>
                     </div>
                 </div>
@@ -87,7 +89,7 @@ const ProblemStatement = ({ collapsed = false }: ProblemStatementProps) => {
                     )}
                 </div>
                 <div className="flex items-center text-warning-500 bg-warning-500/10 px-3 py-1 rounded-full">
-                    <Clock className="h-4 w-4 mr-1" />
+                    <Clock className="h-4 w-4 mr-1"/>
                     <span className="text-sm font-mono">{formatTime(timeRemaining)}</span>
                 </div>
             </div>
@@ -111,14 +113,14 @@ const ProblemStatement = ({ collapsed = false }: ProblemStatementProps) => {
 
                     <div className="mt-6 flex flex-col gap-2">
                         <div className="flex items-start gap-2">
-                            <CheckCircle className="h-5 w-5 text-success-500 mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="h-5 w-5 text-success-500 mt-0.5 flex-shrink-0"/>
                             <p className="text-sm text-gray-300">
                                 Your solution should have good time complexity. Consider the constraints of the problem.
                             </p>
                         </div>
 
                         <div className="flex items-start gap-2">
-                            <AlertCircle className="h-5 w-5 text-warning-500 mt-0.5 flex-shrink-0" />
+                            <AlertCircle className="h-5 w-5 text-warning-500 mt-0.5 flex-shrink-0"/>
                             <p className="text-sm text-gray-300">
                                 Remember to handle edge cases and invalid inputs appropriately.
                             </p>

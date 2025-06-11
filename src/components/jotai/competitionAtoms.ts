@@ -6,3 +6,5 @@ export const competitionConstraintAtom = atom('');
 
 export const competitionSubjectAtom = atom('');
 export const competitionDescriptionAtom = atom('');
+
+

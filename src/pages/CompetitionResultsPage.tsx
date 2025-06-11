@@ -1,20 +1,19 @@
-import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Trophy, ArrowLeft, Share2 } from 'lucide-react';
-import { useCompetition } from '../context/CompetitionContext';
 import ResultsTable from '../components/competition/ResultsTable';
 import ProblemStatement from '../components/competition/ProblemStatement';
+import {useCompetition} from "../context/CompetitionContext.tsx";
+import {useEffect} from "react";
 
 const CompetitionResultsPage = () => {
   const { roomId } = useParams<{ roomId: string }>();
-  const { resetTimer } = useCompetition();
-  
-  // Reset timer when viewing results
+  const {stopTimer} = useCompetition();
+
   useEffect(() => {
-    resetTimer();
-  }, [resetTimer]);
-  
+    stopTimer();
+  }, [stopTimer]);
+
   // Share functionality
   const handleShare = () => {
     if (!roomId) return;
